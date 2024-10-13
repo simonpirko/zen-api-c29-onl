@@ -26,7 +26,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Post updatePost(Long id, Post post) {
-        Post existingPost = postRepository.findById(id).get();
+        Post existingPost = postRepository.findById(id).orElseThrow(() -> new NotFoundException("Post not Found"));
         existingPost.setTitle(post.getTitle());
         existingPost.setContents(post.getContents());
         return postRepository.save(existingPost);
@@ -34,16 +34,18 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Post getPostById(Long id) {
-        return (Post) postRepository.findAllByUserId(id).orElseThrow(() -> new NotFoundException("Post not found"));
+        return (Post) postRepository.findAllByUserId(id).orElseThrow(() -> new NotFoundException("Post not Found"));
     }
 
     @Override
     public List<Post> getAllPosts() {
-        return List.of();
+        return postRepository.findAll();
     }
 
     @Override
     public void deletePost(Long id) {
+        Post post = postRepository.findById(id).orElseThrow(() -> new NotFoundException("Post not Found"));
+        postRepository.delete(post);
 
     }
 }

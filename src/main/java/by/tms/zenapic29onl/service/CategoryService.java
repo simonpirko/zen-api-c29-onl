@@ -7,8 +7,10 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
-public class CategoryService implements CrudOperation<Category>{
+public class CategoryService implements CrudOperation<Category> {
 
     private final CategoryRepository categoryRepository;
 
@@ -46,6 +48,11 @@ public class CategoryService implements CrudOperation<Category>{
 
     @Override
     public Category findById(Long id) {
-        return null;
+        return categoryRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Category Not Found"));
+    }
+
+    public List<Category> findAll() {
+        return categoryRepository.findAll();
     }
 }

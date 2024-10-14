@@ -36,10 +36,7 @@ public class PostService implements CrudOperation<Post> {
 
     @Override
     public Post update(Post post) {
-        Post existingPost = postRepository.findById(post.getId()).orElseThrow(() -> new NotFoundException("Post not Found"));
-        existingPost.setTitle(post.getTitle());
-        existingPost.setContents(post.getContents());
-        return postRepository.save(existingPost);
+        return postRepository.save(post);
 
     }
 

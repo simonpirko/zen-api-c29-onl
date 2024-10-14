@@ -38,17 +38,19 @@ public class UserService implements CrudOperation<User> {
 
     @Override
     public User update(User user) {
-        User existingUser = userRepository.findById(user.getId())
-                .orElseThrow(() -> new NotFoundException("User not Found"));
+//        User existingUser = userRepository.findById(user.getId())
+//                .orElseThrow(() -> new NotFoundException("User not Found"));
+//
+//        existingUser.setUsername(user.getUsername());
+//        existingUser.setEmail(user.getEmail());
+//        existingUser.setFirstName(user.getFirstName());
+//        existingUser.setLastName(user.getLastName());
+//        existingUser.setPassword(user.getPassword());
+//        existingUser.setPhone(user.getPhone());
+//
+//        return userRepository.save(existingUser);
 
-        existingUser.setUsername(user.getUsername());
-        existingUser.setEmail(user.getEmail());
-        existingUser.setFirstName(user.getFirstName());
-        existingUser.setLastName(user.getLastName());
-        existingUser.setPassword(user.getPassword());
-        existingUser.setPhone(user.getPhone());
-
-        return userRepository.save(existingUser);
+        return userRepository.save(user);
     }
 
     @Override

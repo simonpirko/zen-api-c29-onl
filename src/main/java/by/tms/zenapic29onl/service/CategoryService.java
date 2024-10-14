@@ -37,12 +37,15 @@ public class CategoryService implements CrudOperation<Category> {
 
     @Override
     public Category update(Category category) {
-        Category existingCategory = categoryRepository.findById(category.getId())
-                .orElseThrow(() -> new NotFoundException("Category Not Found"));
-        existingCategory.setName(category.getName());
-        existingCategory.setDescription(category.getDescription());
-        existingCategory.setImage(category.getImage());
-        return categoryRepository.save(existingCategory);
+
+//        Category existingCategory = categoryRepository.findById(category.getId())
+//                .orElseThrow(() -> new NotFoundException("Category Not Found"));
+//        existingCategory.setName(category.getName());
+//        existingCategory.setDescription(category.getDescription());
+//        existingCategory.setImage(category.getImage());
+//        return categoryRepository.save(existingCategory);
+
+        return categoryRepository.save(category);
 
     }
 

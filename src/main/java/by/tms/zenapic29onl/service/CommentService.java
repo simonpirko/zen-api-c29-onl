@@ -31,9 +31,12 @@ public class CommentService implements CrudOperation<Comment> {
 
     @Override
     public Comment update(Comment comment) {
-        Comment existingComment = findById(comment.getId());
-        existingComment.setDescription(comment.getDescription());
-        return commentRepository.save(existingComment);
+//        Comment existingComment = findById(comment.getId());
+//        existingComment.setDescription(comment.getDescription());
+//        return commentRepository.save(existingComment);
+
+        return commentRepository.save(comment);
+
     }
 
     @Override

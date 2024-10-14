@@ -15,9 +15,11 @@ public class SubscriberService implements CrudOperation<Subscriber> {
 
     @Override
     public Subscriber save(Subscriber subscriber) {
-        if (subscriberRepository.findByUser(subscriber.getUser()).isPresent()) {
-            throw new IllegalArgumentException("User is already Subscribed");
-        }
+
+//        if (subscriberRepository.findByUser(subscriber.getUser()).isPresent()) {
+//            throw new IllegalArgumentException("User is already Subscribed");
+//        }
+
         return subscriberRepository.save(subscriber);
     }
 
@@ -33,12 +35,14 @@ public class SubscriberService implements CrudOperation<Subscriber> {
 
     @Override
     public Subscriber update(Subscriber subscriber) {
-        Subscriber existingSubscriber = subscriberRepository.findById(subscriber.getId())
-                .orElseThrow(() -> new NotFoundException("Subscriber not Found"));
+//        Subscriber existingSubscriber = subscriberRepository.findById(subscriber.getId())
+//                .orElseThrow(() -> new NotFoundException("Subscriber not Found"));
+//
+//        existingSubscriber.setUser(subscriber.getUser());
 
-        existingSubscriber.setUser(subscriber.getUser());
+//        return subscriberRepository.save(existingSubscriber);
 
-        return subscriberRepository.save(existingSubscriber);
+        return subscriberRepository.save(subscriber);
     }
 
     @Override

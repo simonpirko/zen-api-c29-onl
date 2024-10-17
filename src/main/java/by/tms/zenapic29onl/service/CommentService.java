@@ -3,43 +3,43 @@ package by.tms.zenapic29onl.service;
 import by.tms.zenapic29onl.entity.Comment;
 import by.tms.zenapic29onl.exception.NotFoundException;
 import by.tms.zenapic29onl.repository.CommentRepository;
+import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CommentService implements CrudOperation<Comment> {
+public class CommentService {
     private final CommentRepository commentRepository;
 
+    @Autowired
     public CommentService(CommentRepository commentRepository) {
         this.commentRepository = commentRepository;
     }
 
-    @Override
+    @Transactional
     public Comment save(Comment comment) {
         return commentRepository.save(comment);
     }
 
-    @Override
+    @Transactional
     public void delete(Comment comment) {
         commentRepository.delete(comment);
     }
 
-    @Override
+    @Transactional
     public void delete(Long id) {
         Comment comment = findById(id);
         commentRepository.delete(comment);
     }
 
-    @Override
+    @Transactional
     public Comment update(Comment comment) {
-//        Comment existingComment = findById(comment.getId());
-//        existingComment.setDescription(comment.getDescription());
-//        return commentRepository.save(existingComment);
-
-        return commentRepository.save(comment);
-
+        Comment existingComment = findById(comment.getId());
+        existingComment.setDescription(comment.getDescription());
+        return commentRepository.save(existingComment);
     }
 
-    @Override
+    @Transactional
     public Comment findById(Long id) {
         return commentRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Comment not Found"));

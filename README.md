@@ -1,3 +1,5 @@
+[![Java CI with Gradle](https://github.com/simonpirko/zen-api-c29-onl/actions/workflows/gradle.yml/badge.svg)](https://github.com/simonpirko/zen-api-c29-onl/actions/workflows/gradle.yml)
+
 ##  Настройка параметров подключения Flyway
 
 ### В файле `build.gradle`

@@ -1,7 +1,7 @@
 package by.tms.zenapic29onl.controller;
 
 import by.tms.zenapic29onl.entity.User;
-import by.tms.zenapic29onl.security.JwtComponent;
+import by.tms.zenapic29onl.security.JwtUtil;
 import by.tms.zenapic29onl.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,7 +21,7 @@ public class AuthController {
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private JwtComponent jwtComponent;
+    private JwtUtil jwtUtil;
 
     @Autowired
     private UserService userService;
@@ -39,7 +39,7 @@ public class AuthController {
             throw new Exception("Invalid Username or Password");
         }
         userService.findById(user.getId());
-        return jwtComponent.generateToken(userDetails);
+        return jwtUtil.generateToken(userDetails);
     }
 
     @PostMapping("/reg")

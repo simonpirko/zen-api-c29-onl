@@ -54,11 +54,12 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
-        return http.getSharedObject(AuthenticationManagerBuilder.class)
+    public AuthenticationManager authenticationManager(HttpSecurity http) {
+        http.getSharedObject(AuthenticationManagerBuilder.class)
                 .userDetailsService(userDetailsService)
                 .passwordEncoder(passwordEncoder)
-                .and()
-                .build();
+                .and();
+
+        return http.build();
     }
 }

@@ -3,10 +3,16 @@ package by.tms.zenapic29onl.service;
 import by.tms.zenapic29onl.entity.User;
 import by.tms.zenapic29onl.exception.NotFoundException;
 import by.tms.zenapic29onl.repository.UserRepository;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+import java.util.Set;
+
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
@@ -15,6 +21,7 @@ public class UserService {
     }
 
     public User save(User user) {
+
         if (userRepository.findByUsername(user.getUsername()).isPresent()) {
             throw new IllegalArgumentException("Username already exists");
         }
@@ -47,6 +54,17 @@ public class UserService {
 
         return userRepository.save(existingUser);
     }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Optional<User> byUsername = userRepository.findByUsername(username);
+        if (byUsername.isPresent()) {
+            User user = byUsername.get();
+            return user;
+        }
+        throw new UsernameNotFoundException(username);
+    }
+
 
     public User findById(Long id) {
         return userRepository.findById(id)

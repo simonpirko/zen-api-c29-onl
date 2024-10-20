@@ -28,7 +28,7 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(e -> e
-                        .requestMatchers("/auth", "/reg").permitAll()  // Эти строки разрешают доступ к эндпоинтам /auth и /reg
+                        .requestMatchers("/login", "/reg").permitAll()  // Эти строки разрешают доступ к эндпоинтам /auth и /reg
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .sessionManagement(c -> c.sessionCreationPolicy(SessionCreationPolicy.STATELESS));

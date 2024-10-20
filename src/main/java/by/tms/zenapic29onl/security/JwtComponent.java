@@ -1,4 +1,4 @@
-package by.tms.zenapic29onl.JWT;
+package by.tms.zenapic29onl.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

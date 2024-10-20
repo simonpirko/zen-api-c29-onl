@@ -20,15 +20,6 @@ public class UserService implements UserDetailsService {
     }
 
     public User save(User user) {
-
-        if (userRepository.findByUsername(user.getUsername()).isPresent()) {
-            throw new IllegalArgumentException("Username already exists");
-        }
-
-        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
-            throw new IllegalArgumentException("Email already exists");
-        }
-
         return userRepository.save(user);
     }
 

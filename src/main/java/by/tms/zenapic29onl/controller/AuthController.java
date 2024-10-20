@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     @Autowired
+    private UserDetails userDetails;
+
+    @Autowired
     private AuthenticationManager authenticationManager;
 
     @Autowired
@@ -35,7 +38,7 @@ public class AuthController {
         } catch (AuthenticationException e) {
             throw new Exception("Invalid Username or Password");
         }
-        UserDetails userDetails = userService.loadByUsername(user.getUsername());
+        userService.findById(user.getId());
         return jwtComponent.generateToken(userDetails);
     }
 

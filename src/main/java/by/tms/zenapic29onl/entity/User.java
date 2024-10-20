@@ -57,6 +57,7 @@ public class User implements UserDetails {
     private List<Subscriber> subscriberList;
 
     @Override
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of();
     }

@@ -17,7 +17,7 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeRequests(e -> e
-                        .requestMatchers("/").permitAll() // Разрешаем доступ...
+                        .requestMatchers("/test").permitAll() // Разрешаем доступ...
                         .anyRequest().authenticated()     // Все остальные запросы требуют аутентификации
                 )
                 .sessionManagement(session ->         // Настройка сессий

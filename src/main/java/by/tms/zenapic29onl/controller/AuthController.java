@@ -27,6 +27,7 @@ public class AuthController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+
     @PostMapping("/auth")
     public String authenticate(@RequestBody User user) throws Exception {
         try {

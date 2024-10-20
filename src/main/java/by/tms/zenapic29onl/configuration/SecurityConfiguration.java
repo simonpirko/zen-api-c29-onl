@@ -13,21 +13,35 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfiguration {
 
+//    @Bean
+//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+//        http.csrf(AbstractHttpConfigurer::disable)
+//                .authorizeRequests(e -> e
+//                        .requestMatchers("/test").permitAll() // Разрешаем доступ...
+//                        .anyRequest().authenticated()     // Все остальные запросы требуют аутентификации
+//                )
+//                .sessionManagement(session ->         // Настройка сессий
+//                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//                );
+//
+//       // http.addFilterBefore(jwtRequestFilter(), UsernamePasswordAuthenticationFilter.class);
+//
+//        return http.build();
+//    }
+
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeRequests(e -> e
-                        .requestMatchers("/test").permitAll() // Разрешаем доступ...
-                        .anyRequest().authenticated()     // Все остальные запросы требуют аутентификации
-                )
-                .sessionManagement(session ->         // Настройка сессий
-                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                );
-
-       // http.addFilterBefore(jwtRequestFilter(), UsernamePasswordAuthenticationFilter.class);
-
+        http
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeRequests()
+                .requestMatchers("/").permitAll()  // Доступ для всех к регистрации и логину
+                .anyRequest().authenticated()  // Остальные запросы требуют аутентификации
+                .and()
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         return http.build();
+
     }
-
-
 }
+
+

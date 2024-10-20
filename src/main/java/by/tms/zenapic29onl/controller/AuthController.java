@@ -14,10 +14,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class AuthController {
 
-    @Autowired
     private UserDetails userDetails;
 
-    @Autowired
     private AuthenticationManager authenticationManager;
 
     @Autowired

@@ -3,12 +3,10 @@ package by.tms.zenapic29onl.service;
 import by.tms.zenapic29onl.entity.User;
 import by.tms.zenapic29onl.exception.NotFoundException;
 import by.tms.zenapic29onl.repository.UserRepository;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService implements UserDetailsService {
+public class UserService {
 
     private final UserRepository userRepository;
 
@@ -48,11 +46,6 @@ public class UserService implements UserDetailsService {
         existingUser.setPhone(user.getPhone());
 
         return userRepository.save(existingUser);
-    }
-
-    public UserDetails loadByUsername(String username) {
-        return userRepository.findByUsername(username)
-                .orElseThrow(() -> new NotFoundException("User not found"));
     }
 
     public User findById(Long id) {

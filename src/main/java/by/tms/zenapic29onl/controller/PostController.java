@@ -2,8 +2,6 @@ package by.tms.zenapic29onl.controller;
 
 import by.tms.zenapic29onl.entity.Post;
 import by.tms.zenapic29onl.entity.User;
-import by.tms.zenapic29onl.repository.PostRepository;
-import by.tms.zenapic29onl.repository.UserRepository;
 import by.tms.zenapic29onl.service.PostService;
 import by.tms.zenapic29onl.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +24,19 @@ public class PostController {
     @PostMapping
     public ResponseEntity<Post> createPost(@RequestBody Post post, @AuthenticationPrincipal User user) {
         post.setUser(user);
-        postService.save(post);
-        user.getPosts().add(post);
+        Post save = postService.save(post);
 
+        user.getPosts().add(save);
         userService.save(user);
 
-        return ResponseEntity.ok(user);
+        return ResponseEntity.ok(save);
+
+//        post.setUser(user);
+//        postService.save(post);
+//        user.getPosts().add(post);
+//
+//        userService.save(user);
+//
+//        return ResponseEntity.ok(user);
     }
 }

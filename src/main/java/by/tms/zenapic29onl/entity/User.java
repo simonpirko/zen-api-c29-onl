@@ -21,7 +21,7 @@ import java.util.List;
 @Setter
 @ToString
 @Table(name = "USERS")
-public class User implements UserDetails {
+public class User extends Post implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -49,7 +49,7 @@ public class User implements UserDetails {
     private List<Role> roleList;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Post> posts;
 
     @JsonIgnore

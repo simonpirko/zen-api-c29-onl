@@ -2,8 +2,6 @@ package by.tms.zenapic29onl.controller;
 
 import by.tms.zenapic29onl.entity.Post;
 import by.tms.zenapic29onl.entity.User;
-import by.tms.zenapic29onl.repository.PostRepository;
-import by.tms.zenapic29onl.repository.UserRepository;
 import by.tms.zenapic29onl.service.PostService;
 import by.tms.zenapic29onl.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -31,6 +31,6 @@ public class PostController {
 
         userService.save(user);
 
-        return ResponseEntity.ok(user);
+        return ResponseEntity.ok(post);
     }
 }

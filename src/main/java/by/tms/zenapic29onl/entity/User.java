@@ -49,7 +49,7 @@ public class User implements UserDetails {
     private List<Role> roleList;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Post> posts;
 
     @JsonIgnore

@@ -7,16 +7,18 @@ spring:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
-    password: admin
+    password: root
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: validate
 
   flyway:
     enabled: true
     locations: classpath:db/migration
-    baseline-on-migrate: true
     schemas: public
+    clean-disabled: false
+
+
 
 security:
   allow-credentials: true

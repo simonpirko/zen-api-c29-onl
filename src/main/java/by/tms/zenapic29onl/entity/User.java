@@ -6,10 +6,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.*;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
 import java.util.List;
 
 @Data
@@ -43,7 +41,7 @@ public class User implements UserDetails {
 
     @JsonIgnore
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "user")
-    private List<Role> roleList;
+    private List<Role> authorities;
 
     @JsonIgnore
     @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
@@ -53,11 +51,6 @@ public class User implements UserDetails {
     @OneToMany (mappedBy = "user", cascade = CascadeType.ALL)
     private List<Subscriber> subscriberList;
 
-    @Override
-    @JsonIgnore
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return getAuthorities();
-    }
 
     @Override
     public boolean isAccountNonExpired() {

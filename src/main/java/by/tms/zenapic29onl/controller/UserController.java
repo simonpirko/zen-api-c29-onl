@@ -26,9 +26,8 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody User user) {
-        Role role = new Role();
+        Role role = new Role("ROLE_USER");
         role.setUser(user);
-        role.setTypeOfRole("ROLE_USER");
         List<Role> roles = new ArrayList<>();
         roles.add(role);
         user.setAuthorities(roles);

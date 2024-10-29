@@ -3,32 +3,70 @@ package by.tms.zenapic29onl.controller;
 import by.tms.zenapic29onl.entity.Post;
 import by.tms.zenapic29onl.entity.User;
 import by.tms.zenapic29onl.service.PostService;
-import by.tms.zenapic29onl.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
-@RequestMapping("/api/post")
+@RequestMapping("/api/posts")
 public class PostController {
 
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private PostService postService;
+    private final PostService postService;
 
+    @Autowired
+    public PostController(PostService postService) {
+        this.postService = postService;
+    }
+
+    @Operation()
+    @GetMapping
+    public ResponseEntity<List<Post>> getAllPosts() {
+        List<Post> posts = postService.findAllPost();
+        return ResponseEntity.ok(posts);
+    }
+
+    @Operation(summary = "Создать новый пост")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Пост успешно создан"),
+            @ApiResponse(responseCode = "400", description = "Неверные параметры запроса")
+    })
     @PostMapping
-    public ResponseEntity<Post> createPost(@RequestBody Post post, @AuthenticationPrincipal User user) {
-        post.setUser(user);
-        postService.save(post);
-        user.getPosts().add(post);
+    public ResponseEntity<Post> createPost(@RequestParam String title, @RequestParam String content) {
+        User author = getAuthenticatedUser();
+        Post post = postService.save(new Post());
+        return ResponseEntity.status(HttpStatus.CREATED).body(post);
+    }
 
-        userService.save(user);
+    @Operation(summary = "Редактировать пост")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Пост успешно обновлен"),
+            @ApiResponse(responseCode = "404", description = "Пост не найден")
+    })
+    @PutMapping("/{id}")
+    public ResponseEntity<Post> updatePost(@PathVariable Long id, @RequestParam String title, @RequestParam String content) {
+        Post updatedPost = postService.update(new Post());
+        return ResponseEntity.ok(updatedPost);
+    }
 
-        return ResponseEntity.ok(post);
+    @Operation(summary = "Удалить пост")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Пост успешно удален"),
+            @ApiResponse(responseCode = "404", description = "Пост не найден")
+    })
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletePost(@PathVariable Long id) {
+        postService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    private User getAuthenticatedUser() {
+        return new User();
     }
 }

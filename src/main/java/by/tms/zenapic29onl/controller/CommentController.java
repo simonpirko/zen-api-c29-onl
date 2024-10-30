@@ -23,24 +23,25 @@ public class CommentController {
 
     @GetMapping("/{postId}/comments")
     public ResponseEntity<List<Comment>> allComment(@PathVariable Long postId) {
-        Optional<List<Comment>> comments = commentService.findAllByPostId(postId);
-        if (comments.isPresent()) {
-            return ResponseEntity.ok(comments.get());
+        List<Comment> comments = commentService.findAllByPostId(postId);
+        if (!comments.isEmpty()) {
+            return ResponseEntity.ok(comments);
         } else return ResponseEntity.notFound().build();
     }
-    @PostMapping("/{postId}/comment/add")
+    @PostMapping("/{postId}/comment")
     public ResponseEntity<Comment> addComment(@PathVariable Long postId, @RequestBody Comment comment) {
         Post post = postService.findById(postId);
         comment.setPost(post);
         Comment newComment = commentService.save(comment);
         return ResponseEntity.ok(newComment);
     }
-    @PostMapping("/{postId}/comment/remove")
+    @DeleteMapping("/{postId}/comment/remove")
     public ResponseEntity<?> removeComment(@RequestBody Comment comment) {
         commentService.delete(comment);
         return ResponseEntity.ok("Comment removed");
     }
-    @PostMapping("/{postId}/comment/update")
+
+    @PutMapping("/{postId}/comment/update")
     public ResponseEntity<?> updateComment(@RequestBody Comment comment) {
         commentService.update(comment);
         return ResponseEntity.ok("Comment updated successfully");

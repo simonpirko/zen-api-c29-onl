@@ -36,8 +36,8 @@ public class CommentService {
     }
 
     @Transactional
-    public Optional<List<Comment>> findAllByPostId(Long postId) {
-        return commentRepository.findAllByPostId(postId);
+    public List<Comment> findAllByPostId(Long postId) {
+        return commentRepository.findAllByPostId(postId).get();
     }
 
     @Transactional
